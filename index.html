@@ -59,7 +59,7 @@
         .task-modal { background: var(--card-bg); padding: 30px 20px; border-radius: 15px; text-align: center; margin-top: 20px; border: 1px solid var(--primary); }
 
         /* Ads */
-        .ad-banner { background: #2f3542; text-align: center; padding: 15px; margin-top: 20px; border: 1px dashed var(--text-dim); color: var(--text-dim); border-radius: 8px; }
+        .ad-banner { background: #2f3542; text-align: center; padding: 15px; margin-top: 20px; margin-bottom: 20px; border: 1px dashed var(--text-dim); color: var(--text-dim); border-radius: 8px; overflow: hidden; }
 
         /* Footer Nav */
         footer { position: fixed; bottom: 0; left: 0; width: 100%; background: var(--card-bg); display: flex; justify-content: space-around; padding: 12px 0; box-shadow: 0 -2px 10px rgba(0,0,0,0.5); z-index: 100; }
@@ -85,10 +85,39 @@
         <!-- Auth Screen -->
         <div id="auth-screen" class="hidden auth-box">
             <h2><i class="fa-solid fa-bolt"></i> Join the Challenge</h2>
+            
+            <!-- Adsterra Ad Place 1 (Auth) -->
+            <div class="ad-banner">
+                <script type="text/javascript">
+                    atOptions = {
+                        'key' : '850cd531e6d35f8b00dfcdf167f7b61d',
+                        'format' : 'iframe',
+                        'height' : 50,
+                        'width' : 320,
+                        'params' : {}
+                    };
+                </script>
+                <script type="text/javascript" src="https://www.highperformanceformat.com/850cd531e6d35f8b00dfcdf167f7b61d/invoke.js"></script>
+            </div>
+
             <input type="email" id="email" placeholder="Enter Email">
             <input type="password" id="password" placeholder="Password (min 6 chars)">
             <button onclick="login()">Login</button>
             <button onclick="register()" style="background: #333; margin-top: 10px;">Sign Up</button>
+            
+            <!-- Adsterra Ad Place 2 (Auth) -->
+            <div class="ad-banner">
+                <script type="text/javascript">
+                    atOptions = {
+                        'key' : '850cd531e6d35f8b00dfcdf167f7b61d',
+                        'format' : 'iframe',
+                        'height' : 50,
+                        'width' : 320,
+                        'params' : {}
+                    };
+                </script>
+                <script type="text/javascript" src="https://www.highperformanceformat.com/850cd531e6d35f8b00dfcdf167f7b61d/invoke.js"></script>
+            </div>
         </div>
 
         <!-- Profile Screen -->
@@ -96,6 +125,20 @@
             <h2><i class="fa-solid fa-user-shield"></i> User Profile</h2>
             <p id="user-email" style="margin-bottom: 20px; color: var(--secondary); font-weight: bold;"></p>
             
+            <!-- Adsterra Ad Place 1 (Profile) -->
+            <div class="ad-banner">
+                <script type="text/javascript">
+                    atOptions = {
+                        'key' : '850cd531e6d35f8b00dfcdf167f7b61d',
+                        'format' : 'iframe',
+                        'height' : 50,
+                        'width' : 320,
+                        'params' : {}
+                    };
+                </script>
+                <script type="text/javascript" src="https://www.highperformanceformat.com/850cd531e6d35f8b00dfcdf167f7b61d/invoke.js"></script>
+            </div>
+
             <div style="background: #2f3542; padding: 20px; border-radius: 10px; margin-bottom: 20px;">
                 <button id="start-btn" onclick="startJourney()" style="background: var(--secondary); color: #121212; font-size: 18px; margin-top: 0; box-shadow: 0 4px 10px rgba(46, 213, 115, 0.3);"><i class="fa-solid fa-play"></i> Start Challenge</button>
                 <p id="journey-date" class="hidden" style="color: var(--secondary); font-size: 15px; font-weight: bold;"><i class="fa-solid fa-calendar-check"></i> Started: </p>
@@ -103,11 +146,40 @@
 
             <button onclick="logout()"><i class="fa-solid fa-right-from-bracket"></i> Logout</button>
             <button onclick="goHome()" style="background: #333; margin-top: 10px;"><i class="fa-solid fa-house"></i> Back to Home</button>
+
+            <!-- Adsterra Ad Place 2 (Profile) -->
+            <div class="ad-banner">
+                <script type="text/javascript">
+                    atOptions = {
+                        'key' : '850cd531e6d35f8b00dfcdf167f7b61d',
+                        'format' : 'iframe',
+                        'height' : 50,
+                        'width' : 320,
+                        'params' : {}
+                    };
+                </script>
+                <script type="text/javascript" src="https://www.highperformanceformat.com/850cd531e6d35f8b00dfcdf167f7b61d/invoke.js"></script>
+            </div>
         </div>
 
         <!-- Home (Months) -->
         <div id="home-screen" class="hidden">
             <h2>Select Your Journey</h2>
+            
+            <!-- Adsterra Ad Place 1 (Home) -->
+            <div class="ad-banner">
+                <script type="text/javascript">
+                    atOptions = {
+                        'key' : '850cd531e6d35f8b00dfcdf167f7b61d',
+                        'format' : 'iframe',
+                        'height' : 50,
+                        'width' : 320,
+                        'params' : {}
+                    };
+                </script>
+                <script type="text/javascript" src="https://www.highperformanceformat.com/850cd531e6d35f8b00dfcdf167f7b61d/invoke.js"></script>
+            </div>
+
             <div class="grid-cards">
                 <div class="card full-width" onclick="openMonth('level1')">
                     <i class="fa-solid fa-fire" style="color: #ff4757;"></i>
@@ -121,13 +193,41 @@
                     <i class="fa-solid fa-lock" style="color: #555;"></i><h3>Month 3</h3>
                 </div>
             </div>
-            <div class="ad-banner">Google AdMob / AdSense Space</div>
+            
+            <!-- Adsterra Ad Place 2 (Home) -->
+            <div class="ad-banner">
+                <script type="text/javascript">
+                    atOptions = {
+                        'key' : '850cd531e6d35f8b00dfcdf167f7b61d',
+                        'format' : 'iframe',
+                        'height' : 50,
+                        'width' : 320,
+                        'params' : {}
+                    };
+                </script>
+                <script type="text/javascript" src="https://www.highperformanceformat.com/850cd531e6d35f8b00dfcdf167f7b61d/invoke.js"></script>
+            </div>
         </div>
 
         <!-- Categories -->
         <div id="categories-screen" class="hidden">
             <button class="back-btn" onclick="goHome()"><i class="fa-solid fa-arrow-left"></i> Back</button>
             <h2 id="month-title">Month 1 Categories</h2>
+            
+            <!-- Adsterra Ad Place 1 (Categories) -->
+            <div class="ad-banner">
+                <script type="text/javascript">
+                    atOptions = {
+                        'key' : '850cd531e6d35f8b00dfcdf167f7b61d',
+                        'format' : 'iframe',
+                        'height' : 50,
+                        'width' : 320,
+                        'params' : {}
+                    };
+                </script>
+                <script type="text/javascript" src="https://www.highperformanceformat.com/850cd531e6d35f8b00dfcdf167f7b61d/invoke.js"></script>
+            </div>
+
             <div class="grid-cards">
                 <div class="card" onclick="openDays('hair')">
                     <i class="fa-solid fa-spray-can-sparkles" style="color: #ff9ff3;"></i><h3>Hair</h3>
@@ -145,13 +245,56 @@
                     <i class="fa-solid fa-spa" style="color: #48dbfb;"></i><h3>Skin</h3>
                 </div>
             </div>
+
+            <!-- Adsterra Ad Place 2 (Categories) -->
+            <div class="ad-banner">
+                <script type="text/javascript">
+                    atOptions = {
+                        'key' : '850cd531e6d35f8b00dfcdf167f7b61d',
+                        'format' : 'iframe',
+                        'height' : 50,
+                        'width' : 320,
+                        'params' : {}
+                    };
+                </script>
+                <script type="text/javascript" src="https://www.highperformanceformat.com/850cd531e6d35f8b00dfcdf167f7b61d/invoke.js"></script>
+            </div>
         </div>
 
         <!-- Days List -->
         <div id="days-screen" class="hidden">
             <button class="back-btn" onclick="openMonth(currentMonth)"><i class="fa-solid fa-arrow-left"></i> Categories</button>
             <h2 id="cat-title" style="color: var(--primary);">Hair Routine</h2>
+            
+            <!-- Adsterra Ad Place 1 (Days) -->
+            <div class="ad-banner">
+                <script type="text/javascript">
+                    atOptions = {
+                        'key' : '850cd531e6d35f8b00dfcdf167f7b61d',
+                        'format' : 'iframe',
+                        'height' : 50,
+                        'width' : 320,
+                        'params' : {}
+                    };
+                </script>
+                <script type="text/javascript" src="https://www.highperformanceformat.com/850cd531e6d35f8b00dfcdf167f7b61d/invoke.js"></script>
+            </div>
+
             <div id="days-container"></div>
+            
+            <!-- Adsterra Ad Place 2 (Days) -->
+            <div class="ad-banner">
+                <script type="text/javascript">
+                    atOptions = {
+                        'key' : '850cd531e6d35f8b00dfcdf167f7b61d',
+                        'format' : 'iframe',
+                        'height' : 50,
+                        'width' : 320,
+                        'params' : {}
+                    };
+                </script>
+                <script type="text/javascript" src="https://www.highperformanceformat.com/850cd531e6d35f8b00dfcdf167f7b61d/invoke.js"></script>
+            </div>
         </div>
 
         <!-- Task Modal -->
@@ -159,10 +302,39 @@
             <button class="back-btn" onclick="openDays(currentCategory)" style="float: left;"><i class="fa-solid fa-arrow-left"></i></button>
             <div style="clear: both;"></div>
             <h2 id="task-day-title">Day 1</h2>
+            
+            <!-- Adsterra Ad Place 1 (Task) -->
+            <div class="ad-banner">
+                <script type="text/javascript">
+                    atOptions = {
+                        'key' : '850cd531e6d35f8b00dfcdf167f7b61d',
+                        'format' : 'iframe',
+                        'height' : 50,
+                        'width' : 320,
+                        'params' : {}
+                    };
+                </script>
+                <script type="text/javascript" src="https://www.highperformanceformat.com/850cd531e6d35f8b00dfcdf167f7b61d/invoke.js"></script>
+            </div>
+
             <i id="task-icon" class="fa-solid fa-fire" style="font-size: 50px; color: var(--primary); margin: 20px 0;"></i>
             <p id="task-desc" style="font-size: 18px; margin-bottom: 20px;">Complete your daily routine!</p>
-            <div class="ad-banner">AdSense Space</div>
+            
             <button class="complete-btn" onclick="completeTask()"><i class="fa-solid fa-check"></i> Complete Day</button>
+            
+            <!-- Adsterra Ad Place 2 (Task) -->
+            <div class="ad-banner">
+                <script type="text/javascript">
+                    atOptions = {
+                        'key' : '850cd531e6d35f8b00dfcdf167f7b61d',
+                        'format' : 'iframe',
+                        'height' : 50,
+                        'width' : 320,
+                        'params' : {}
+                    };
+                </script>
+                <script type="text/javascript" src="https://www.highperformanceformat.com/850cd531e6d35f8b00dfcdf167f7b61d/invoke.js"></script>
+            </div>
         </div>
     </div>
 
@@ -436,18 +608,6 @@
             }
         });
     </script>
-    <script>
-        <script>
-  atOptions = {
-    'key' : '850cd531e6d35f8b00dfcdf167f7b61d',
-    'format' : 'iframe',
-    'height' : 50,
-    'width' : 320,
-    'params' : {}
-  };
-</script>
-<script src="https://www.highperformanceformat.com/850cd531e6d35f8b00dfcdf167f7b61d/invoke.js"></script>
-
-    </script>
+        
 </body>
 </html>
