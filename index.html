@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transform Challenge Pro</title>
+    <!-- Google Fonts & FontAwesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* Gym Theme Colors & Reset */
+        :root {
+            --bg-color: #121212;
+            --card-bg: #1e1e1e;
+            --primary: #ff4757;
+            --secondary: #2ed573;
+            --text-light: #ffffff;
+            --text-dim: #a4b0be;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        body { background-color: var(--bg-color); color: var(--text-light); padding-bottom: 70px; }
+        .hidden { display: none !important; }
+
+        /* Header */
+        header { background: var(--card-bg); padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 10px rgba(0,0,0,0.5); position: sticky; top: 0; z-index: 100; }
+        .logo { font-size: 22px; font-weight: 800; color: var(--primary); text-transform: uppercase; letter-spacing: 1px; }
+        .profile-icon { font-size: 24px; color: var(--text-light); cursor: pointer; }
+
+        /* Container */
+        .container { padding: 20px; max-width: 600px; margin: 0 auto; }
+        h2 { text-align: center; color: var(--text-light); margin-bottom: 20px; font-weight: 600; }
+
+        /* Auth Screen */
+        .auth-box { background: var(--card-bg); padding: 30px; border-radius: 15px; text-align: center; margin-top: 50px; box-shadow: 0 5px 15px rgba(255, 71, 87, 0.2); }
+        .auth-box input { width: 100%; padding: 12px; margin: 10px 0; border-radius: 8px; border: 1px solid #333; background: #2f3542; color: white; outline: none; }
+        .auth-box button { width: 100%; padding: 12px; background: var(--primary); color: white; font-weight: bold; border: none; border-radius: 8px; cursor: pointer; font-size: 16px; margin-top: 10px; }
+        
+        /* Grid Cards */
+        .grid-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .card { background: var(--card-bg); padding: 25px 15px; border-radius: 15px; text-align: center; cursor: pointer; border: 2px solid transparent; transition: 0.3s; box-shadow: 0 4px 8px rgba(0,0,0,0.3); }
+        .card:hover { border-color: var(--primary); transform: translateY(-5px); }
+        .card i { font-size: 40px; margin-bottom: 10px; }
+        .card h3 { font-size: 18px; color: var(--text-light); }
+        .full-width { grid-column: span 2; }
+        
+        /* Locked Card Style */
+        .locked-card { opacity: 0.5; cursor: not-allowed; border-color: #333 !important; background: #1a1a1a; }
+        .locked-card:hover { transform: none; border-color: #333 !important; }
+
+        /* Days List */
+        .day-box { background: var(--card-bg); padding: 15px 20px; margin-bottom: 12px; border-radius: 10px; font-size: 18px; font-weight: bold; display: flex; justify-content: space-between; align-items: center; cursor: pointer; border-left: 5px solid var(--primary); transition: 0.2s; }
+        .day-box.locked { background: #1a1a1a; border-left: 5px solid #555; color: #555; cursor: not-allowed; }
+        .day-box:not(.locked):hover { background: #2f3542; }
+
+        /* Buttons & Tasks */
+        .back-btn { background: #333; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; margin-bottom: 15px; font-size: 14px; }
+        .complete-btn { background: var(--secondary); color: #121212; border: none; padding: 15px 20px; border-radius: 8px; font-size: 18px; cursor: pointer; margin-top: 20px; width: 100%; font-weight: bold; text-transform: uppercase; box-shadow: 0 4px 10px rgba(46, 213, 115, 0.4); }
+        .task-modal { background: var(--card-bg); padding: 30px 20px; border-radius: 15px; text-align: center; margin-top: 20px; border: 1px solid var(--primary); }
+
+        /* Ads */
+        .ad-banner { background: #2f3542; text-align: center; padding: 15px; margin-top: 20px; border: 1px dashed var(--text-dim); color: var(--text-dim); border-radius: 8px; }
+
+        /* Footer Nav */
+        footer { position: fixed; bottom: 0; left: 0; width: 100%; background: var(--card-bg); display: flex; justify-content: space-around; padding: 12px 0; box-shadow: 0 -2px 10px rgba(0,0,0,0.5); z-index: 100; }
+        .nav-item { text-align: center; color: var(--text-dim); cursor: pointer; font-size: 12px; transition: 0.3s; }
+        .nav-item i { font-size: 20px; margin-bottom: 5px; display: block; }
+        .nav-item.active, .nav-item:hover { color: var(--primary); }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo"><i class="fa-solid fa-dumbbell"></i> Transform</div>
+        <div class="profile-icon" onclick="showProfile()"><i class="fa-solid fa-circle-user"></i></div>
+    </header>
+
+    <div class="container">
+        <!-- Loading Screen -->
+        <div id="loading-screen" style="text-align: center; margin-top: 50px;">
+            <h2>Loading... <i class="fa-solid fa-spinner fa-spin"></i></h2>
+            <p style="color:var(--text-dim); font-size:12px;">Connecting to server...</p>
+        </div>
+
+        <!-- Auth Screen -->
+        <div id="auth-screen" class="hidden auth-box">
+            <h2><i class="fa-solid fa-bolt"></i> Join the Challenge</h2>
+            <input type="email" id="email" placeholder="Enter Email">
+            <input type="password" id="password" placeholder="Password (min 6 chars)">
+            <button onclick="login()">Login</button>
+            <button onclick="register()" style="background: #333; margin-top: 10px;">Sign Up</button>
+        </div>
+
+        <!-- Profile Screen -->
+        <div id="profile-screen" class="hidden auth-box">
+            <h2><i class="fa-solid fa-user-shield"></i> User Profile</h2>
+            <p id="user-email" style="margin-bottom: 20px; color: var(--secondary); font-weight: bold;"></p>
+            
+            <div style="background: #2f3542; padding: 20px; border-radius: 10px; margin-bottom: 20px;">
+                <button id="start-btn" onclick="startJourney()" style="background: var(--secondary); color: #121212; font-size: 18px; margin-top: 0; box-shadow: 0 4px 10px rgba(46, 213, 115, 0.3);"><i class="fa-solid fa-play"></i> Start Challenge</button>
+                <p id="journey-date" class="hidden" style="color: var(--secondary); font-size: 15px; font-weight: bold;"><i class="fa-solid fa-calendar-check"></i> Started: </p>
+            </div>
+
+            <button onclick="logout()"><i class="fa-solid fa-right-from-bracket"></i> Logout</button>
+            <button onclick="goHome()" style="background: #333; margin-top: 10px;"><i class="fa-solid fa-house"></i> Back to Home</button>
+        </div>
+
+        <!-- Home (Months) -->
+        <div id="home-screen" class="hidden">
+            <h2>Select Your Journey</h2>
+            <div class="grid-cards">
+                <div class="card full-width" onclick="openMonth('level1')">
+                    <i class="fa-solid fa-fire" style="color: #ff4757;"></i>
+                    <h3>Month 1</h3>
+                    <p style="font-size: 12px; color: var(--text-dim);">Beginner Phase</p>
+                </div>
+                <div class="card locked-card" id="month2-card">
+                    <i class="fa-solid fa-lock" style="color: #555;"></i><h3>Month 2</h3>
+                </div>
+                <div class="card locked-card" id="month3-card">
+                    <i class="fa-solid fa-lock" style="color: #555;"></i><h3>Month 3</h3>
+                </div>
+            </div>
+            <div class="ad-banner">Google AdMob / AdSense Space</div>
+        </div>
+
+        <!-- Categories -->
+        <div id="categories-screen" class="hidden">
+            <button class="back-btn" onclick="goHome()"><i class="fa-solid fa-arrow-left"></i> Back</button>
+            <h2 id="month-title">Month 1 Categories</h2>
+            <div class="grid-cards">
+                <div class="card" onclick="openDays('hair')">
+                    <i class="fa-solid fa-spray-can-sparkles" style="color: #ff9ff3;"></i><h3>Hair</h3>
+                </div>
+                <div class="card" onclick="openDays('face')">
+                    <i class="fa-solid fa-face-smile-beam" style="color: #feca57;"></i><h3>Face</h3>
+                </div>
+                <div class="card" onclick="openDays('body')">
+                    <i class="fa-solid fa-dumbbell" style="color: #ff6b6b;"></i><h3>Body</h3>
+                </div>
+                <div class="card" onclick="openDays('nails')">
+                    <i class="fa-solid fa-hand-sparkles" style="color: #a29bfe;"></i><h3>Nails</h3>
+                </div>
+                <div class="card full-width" onclick="openDays('skin')">
+                    <i class="fa-solid fa-spa" style="color: #48dbfb;"></i><h3>Skin</h3>
+                </div>
+            </div>
+        </div>
+
+        <!-- Days List -->
+        <div id="days-screen" class="hidden">
+            <button class="back-btn" onclick="openMonth(currentMonth)"><i class="fa-solid fa-arrow-left"></i> Categories</button>
+            <h2 id="cat-title" style="color: var(--primary);">Hair Routine</h2>
+            <div id="days-container"></div>
+        </div>
+
+        <!-- Task Modal -->
+        <div id="task-screen" class="hidden task-modal">
+            <button class="back-btn" onclick="openDays(currentCategory)" style="float: left;"><i class="fa-solid fa-arrow-left"></i></button>
+            <div style="clear: both;"></div>
+            <h2 id="task-day-title">Day 1</h2>
+            <i id="task-icon" class="fa-solid fa-fire" style="font-size: 50px; color: var(--primary); margin: 20px 0;"></i>
+            <p id="task-desc" style="font-size: 18px; margin-bottom: 20px;">Complete your daily routine!</p>
+            <div class="ad-banner">AdSense Space</div>
+            <button class="complete-btn" onclick="completeTask()"><i class="fa-solid fa-check"></i> Complete Day</button>
+        </div>
+    </div>
+
+    <footer>
+        <div class="nav-item active" onclick="goHome()"><i class="fa-solid fa-house"></i> Home</div>
+        <div class="nav-item" onclick="showProfile()"><i class="fa-solid fa-user"></i> Profile</div>
+        <div class="nav-item" onclick="alert('Contact feature coming soon!')"><i class="fa-solid fa-envelope"></i> Contact</div>
+    </footer>
+
+    <!-- 🔥 Firebase CDN (Compat Version) -> No module block needed -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore-compat.js"></script>
+
+    <script>
+        // Firebase Config
+        const firebaseConfig = {
+            apiKey: "AIzaSyBV-fIjdOH_yLVLCdRntAYFFLwMAIf6QAE",
+            authDomain: "skillzup.firebaseapp.com",
+            projectId: "skillzup",
+            storageBucket: "skillzup.firebasestorage.app",
+            messagingSenderId: "434977432634",
+            appId: "1:434977432634:web:d66df07b7e986ab5194103"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+
+        // Variables
+        let user = null;
+        let userData = null;
+        let currentMonth = '';
+        let currentCategory = '';
+        let currentDay = 1;
+
+        const defaultProgress = {
+            level1: { hair: 1, face: 1, body: 1, nails: 1, skin: 1 },
+            level2: { hair: 1, face: 1, body: 1, nails: 1, skin: 1 },
+            level3: { hair: 1, face: 1, body: 1, nails: 1, skin: 1 }
+        };
+
+        function hideAll() {
+            ['auth-screen', 'profile-screen', 'home-screen', 'categories-screen', 'days-screen', 'task-screen'].forEach(id => {
+                document.getElementById(id).classList.add('hidden');
+            });
+            document.getElementById('loading-screen').classList.add('hidden');
+        }
+
+        function checkLocks() {
+            if(!userData) return;
+            let p = userData.progress;
+            let m1Done = Object.values(p.level1).every(v => v > 30);
+            let m2Done = Object.values(p.level2).every(v => v > 30);
+
+            let m2 = document.getElementById('month2-card');
+            let m3 = document.getElementById('month3-card');
+
+            if(m1Done) {
+                m2.classList.remove('locked-card');
+                m2.innerHTML = `<i class="fa-solid fa-bolt" style="color: #eccc68;"></i><h3>Month 2</h3>`;
+                m2.onclick = () => openMonth('level2');
+            } else {
+                m2.classList.add('locked-card');
+                m2.innerHTML = `<i class="fa-solid fa-lock" style="color: #555;"></i><h3>Month 2</h3><p style="font-size:10px; color:#aaa">Complete Month 1</p>`;
+                m2.onclick = () => alert("Complete Month 1 to unlock Month 2!");
+            }
+
+            if(m2Done) {
+                m3.classList.remove('locked-card');
+                m3.innerHTML = `<i class="fa-solid fa-trophy" style="color: #ffda79;"></i><h3>Month 3</h3>`;
+                m3.onclick = () => openMonth('level3');
+            } else {
+                m3.classList.add('locked-card');
+                m3.innerHTML = `<i class="fa-solid fa-lock" style="color: #555;"></i><h3>Month 3</h3><p style="font-size:10px; color:#aaa">Complete Month 2</p>`;
+                m3.onclick = () => alert("Complete Month 2 to unlock Month 3!");
+            }
+        }
+
+        function goHome() {
+            if(!user) return;
+            checkLocks();
+            hideAll();
+            document.getElementById('home-screen').classList.remove('hidden');
+        }
+
+        function showProfile() {
+            if(!user) return;
+            hideAll();
+            document.getElementById('user-email').innerText = user.email;
+            
+            if (userData.startDate) {
+                document.getElementById('start-btn').classList.add('hidden');
+                document.getElementById('journey-date').classList.remove('hidden');
+                let d = new Date(userData.startDate).toDateString();
+                document.getElementById('journey-date').innerHTML = `<i class="fa-solid fa-calendar-check"></i> Started: ` + d;
+            } else {
+                document.getElementById('start-btn').classList.remove('hidden');
+                document.getElementById('journey-date').classList.add('hidden');
+            }
+            document.getElementById('profile-screen').classList.remove('hidden');
+        }
+
+        async function startJourney() {
+            if (userData.startDate) return;
+            userData.startDate = new Date().toISOString();
+            try {
+                await db.collection("users").doc(user.uid).update({
+                    startDate: userData.startDate
+                });
+                alert("Awesome! Your Transform Journey begins now! 🎉");
+                showProfile();
+            } catch(e) {
+                alert("Error: " + e.message);
+            }
+        }
+
+        function openMonth(month) {
+            currentMonth = month;
+            hideAll();
+            document.getElementById('month-title').innerText = month.toUpperCase() + " Categories";
+            document.getElementById('categories-screen').classList.remove('hidden');
+        }
+
+        function openDays(category) {
+            if (!userData.startDate) {
+                alert("Please go to your Profile and click 'Start Challenge' to begin!");
+                showProfile();
+                return;
+            }
+
+            currentCategory = category;
+            hideAll();
+            document.getElementById('cat-title').innerText = category.toUpperCase() + " Routine";
+            document.getElementById('days-screen').classList.remove('hidden');
+            
+            let unlockedDay = userData.progress[currentMonth][category];
+            let container = document.getElementById('days-container');
+            container.innerHTML = "";
+
+            let start = new Date(userData.startDate);
+            start.setHours(0,0,0,0);
+            let now = new Date();
+            now.setHours(0,0,0,0);
+            let daysSinceStart = Math.floor((now - start) / (1000 * 60 * 60 * 24)) + 1;
+
+            for (let i = 1; i <= 30; i++) {
+                let isTaskLocked = i > unlockedDay;
+                let isTimeLocked = i > daysSinceStart;
+                let isLocked = isTaskLocked || isTimeLocked;
+
+                let div = document.createElement('div');
+                div.className = "day-box " + (isLocked ? "locked" : "");
+                
+                let statusIcon = "";
+                if (isLocked) {
+                    if (isTimeLocked && !isTaskLocked) {
+                        statusIcon = `<span style="font-size:12px; color:#ff4757;"><i class="fa-solid fa-clock"></i> Wait</span>`;
+                    } else {
+                        statusIcon = '<i class="fa-solid fa-lock"></i>';
+                    }
+                } else {
+                    statusIcon = '<i class="fa-solid fa-unlock" style="color:var(--secondary)"></i>';
+                }
+
+                div.innerHTML = `Day ${i} <span>${statusIcon}</span>`;
+                
+                if (!isLocked) div.onclick = () => openTask(i);
+                else div.onclick = () => {
+                    if (isTimeLocked && !isTaskLocked) alert(`Please wait! Day ${i} will unlock tomorrow.`);
+                    else alert(`Complete Day ${i-1} first!`);
+                };
+                
+                container.appendChild(div);
+            }
+        }
+
+        function openTask(day) {
+            currentDay = day;
+            hideAll();
+            document.getElementById('task-day-title').innerText = `${currentCategory.toUpperCase()} - Day ${day}`;
+            document.getElementById('task-screen').classList.remove('hidden');
+        }
+
+        async function completeTask() {
+            let unlockedDay = userData.progress[currentMonth][currentCategory];
+            
+            if (currentDay === unlockedDay && unlockedDay <= 30) {
+                userData.progress[currentMonth][currentCategory]++;
+                try {
+                    await db.collection("users").doc(user.uid).update({
+                        progress: userData.progress,
+                        lastUpdate: new Date().toISOString()
+                    });
+                    if (currentDay < 30) alert("Awesome! Wait for tomorrow to unlock the next day! 🎉");
+                    else alert("Congratulations! You completed 30 days for this category! 🏆");
+                } catch (e) {
+                    alert("Error saving: " + e.message);
+                }
+            } else {
+                alert("Task already completed!");
+            }
+            openDays(currentCategory);
+        }
+
+        // Authentication Auth 
+        async function register() {
+            let email = document.getElementById('email').value;
+            let pass = document.getElementById('password').value;
+            if(!email || pass.length < 6) return alert("Valid email & 6-char password required");
+            
+            try {
+                hideAll();
+                document.getElementById('loading-screen').classList.remove('hidden');
+                
+                const userCredential = await auth.createUserWithEmailAndPassword(email, pass);
+                await db.collection("users").doc(userCredential.user.uid).set({
+                    email: email,
+                    progress: defaultProgress,
+                    startDate: null
+                });
+                alert("Account Created!");
+            } catch (error) { 
+                alert("Error: " + error.message);
+                hideAll();
+                document.getElementById('auth-screen').classList.remove('hidden');
+            }
+        }
+
+        async function login() {
+            let email = document.getElementById('email').value;
+            let pass = document.getElementById('password').value;
+            try { 
+                hideAll();
+                document.getElementById('loading-screen').classList.remove('hidden');
+                await auth.signInWithEmailAndPassword(email, pass); 
+            } 
+            catch (error) { 
+                alert("Login Failed: " + error.message);
+                hideAll();
+                document.getElementById('auth-screen').classList.remove('hidden');
+            }
+        }
+
+        function logout() {
+            auth.signOut();
+        }
+
+        // Listener
+        auth.onAuthStateChanged(async (currentUser) => {
+            if (currentUser) {
+                user = currentUser;
+                try {
+                    const docSnap = await db.collection("users").doc(user.uid).get();
+                    if (docSnap.exists) {
+                        userData = docSnap.data();
+                    } else {
+                        userData = { email: user.email, progress: defaultProgress, startDate: null };
+                        await db.collection("users").doc(user.uid).set(userData);
+                    }
+                    goHome();
+                } catch(error) {
+                    alert("Database connection failed. Please Make sure Firestore Database is created in Test Mode.");
+                }
+            } else {
+                user = null;
+                userData = null;
+                hideAll();
+                document.getElementById('auth-screen').classList.remove('hidden');
+            }
+        });
+    </script>
+</body>
+</html>
